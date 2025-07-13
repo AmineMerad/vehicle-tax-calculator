@@ -46,11 +46,11 @@ export default function ResultsDisplay({ results, formatCurrency, onCopyResults,
 
   const ProgressBar = ({ value, max, color = "blue", label }) => (
     <div className="mt-3">
-      <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mb-1">
+      <div className="flex justify-between text-xs theme-text-secondary mb-1">
         <span>{label}</span>
         <span>{((value / max) * 100).toFixed(1)}%</span>
       </div>
-      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+      <div className="w-full theme-bg-accent rounded-full h-2">
         <div
           className={`h-2 rounded-full bg-gradient-to-r transition-all duration-1000 ease-out ${
             color === 'blue' ? 'from-blue-400 to-blue-600' :
@@ -91,16 +91,16 @@ export default function ResultsDisplay({ results, formatCurrency, onCopyResults,
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 animate-fade-in">
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
-        <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-700 dark:to-gray-600 px-8 py-6 border-b border-gray-100 dark:border-gray-600">
+      <div className="theme-bg-card rounded-2xl theme-shadow-xl theme-border-primary border overflow-hidden theme-transition">
+        <div className="theme-bg-accent px-8 py-6 border-b theme-border-primary theme-transition">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <div className="p-3 bg-green-500 rounded-xl shadow-lg">
                 <CheckCircle className="h-6 w-6 text-white" />
               </div>
               <div className="ml-4">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Résultats du Calcul</h2>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Détail complet de la taxation</p>
+                <h2 className="text-xl font-bold theme-text-primary">Résultats du Calcul</h2>
+                <p className="text-sm theme-text-secondary">Détail complet de la taxation</p>
               </div>
             </div>
             <div className="flex space-x-3">
@@ -125,11 +125,11 @@ export default function ResultsDisplay({ results, formatCurrency, onCopyResults,
         {/* Main Value Display */}
         <div className="p-8">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center px-6 py-3 bg-blue-50 dark:bg-blue-900 dark:bg-opacity-50 rounded-full mb-4">
+            <div className="inline-flex items-center px-6 py-3 theme-bg-accent rounded-full mb-4">
               <DollarSign className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-2" />
-              <span className="text-sm font-medium text-blue-600 dark:text-blue-400">Valeur en douane</span>
+              <span className="text-sm font-medium theme-border-accent">Valeur en douane</span>
             </div>
-            <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+            <div className="text-3xl font-bold theme-text-primary mb-2">
               {formatCurrency(animatedValues.valueInDZD || 0)}
             </div>
           </div>
@@ -219,22 +219,22 @@ export default function ResultsDisplay({ results, formatCurrency, onCopyResults,
 
           {/* Discount Information */}
           {results.discount > 0 && (
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900 dark:from-opacity-20 dark:to-emerald-900 dark:to-opacity-20 border-2 border-green-200 dark:border-green-700 p-6 rounded-xl mb-8">
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 p-6 rounded-xl mb-8 theme-transition">
               <div className="flex items-center mb-3">
                 <TrendingUp className="h-6 w-6 text-green-600 dark:text-green-400 mr-3" />
-                <h3 className="text-lg font-semibold text-green-800 dark:text-green-300">
+                <h3 className="text-lg font-semibold text-green-800">
                   Réduction Appliquée
                 </h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <div className="text-2xl font-bold text-green-700 dark:text-green-400 mb-1">
+                  <div className="text-2xl font-bold text-green-700 mb-1">
                     -{formatCurrency(animatedValues.discount || 0)}
                   </div>
-                  <p className="text-sm text-green-600 dark:text-green-300">{results.discountText}</p>
+                  <p className="text-sm text-green-600">{results.discountText}</p>
                 </div>
                 <div className="flex items-center">
-                  <div className="w-full bg-green-200 dark:bg-green-800 rounded-full h-4">
+                  <div className="w-full bg-green-200 rounded-full h-4">
                     <div
                       className="h-4 bg-gradient-to-r from-green-400 to-green-600 rounded-full transition-all duration-1000 ease-out flex items-center justify-center"
                       style={{ width: `${results.discountPercentage}%` }}

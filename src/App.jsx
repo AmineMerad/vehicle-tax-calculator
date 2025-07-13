@@ -307,8 +307,9 @@ Source: Calculateur de Taxation Véhicules Algérie`
   }
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'dark' : ''}`}>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <div className={`min-h-screen ${darkMode ? 'app-dark' : 'app-light'} theme-transition`}>
+      
+      <div className="min-h-screen theme-bg-secondary theme-transition">
         <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         
         <div className="relative z-10">
