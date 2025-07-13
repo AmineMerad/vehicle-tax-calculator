@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur de Taxation Véhicules Algérie - Voitures < 3 Ans</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .calculator-section {
+            padding: 40px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .calculate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 30px auto;
+            min-width: 200px;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .results {
+            background: linear-gradient(135deg, #f8f9ff 0%, #f1f3ff 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            border-left: 5px solid #667eea;
+        }
+
+        .results.hidden {
+            display: none;
+        }
+
+        .results h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .tax-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .tax-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tax-item .label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .tax-item .value {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 1.1rem;
+        }
+
+        .total-section {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .total-section h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .total-amount {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f39c12;
+        }
+
+        .info-section {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .info-section h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .info-section ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .info-section li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .info-section li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .warning strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .calculator-section {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .discount-info {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .discount-info h4 {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚗 Calculateur de Taxation Véhicules Algérie</h1>
+            <p>Voitures d'occasion de moins de 3 ans - Calcul des droits de douane et taxes</p>
+        </div>
+
+        <div class="calculator-section">
+            <form id="taxCalculator">
+                <div class="form-grid">
+                    <div>
+                        <div class="form-group">
+                            <label for="vehicleValue">Valeur CIF du véhicule (EUR) *</label>
+                            <input type="number" id="vehicleValue" required step="0.01" placeholder="Ex: 25000">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="engineType">Type de moteur *</label>
+                            <select id="engineType" required>
+                                <option value="">Sélectionnez le type de moteur</option>
+                                <option value="gasoline">Essence</option>
+                                <option value="hybrid">Hybride</option>
+                                <option value="electric">Électrique</option>
+                                <option value="diesel">Diesel (Non autorisé)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="engineDisplacement">Cylindrée (cm³) *</label>
+                            <input type="number" id="engineDisplacement" required placeholder="Ex: 1600">
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-group">
+                            <label for="vehicleAge">Âge du véhicule (mois) *</label>
+                            <input type="number" id="vehicleAge" required min="0" max="36" placeholder="Ex: 18">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exchangeRate">Taux de change EUR/DZD</label>
+                            <input type="number" id="exchangeRate" step="0.01" value="146.68" placeholder="146.68">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="vehicleCategory">Catégorie de véhicule *</label>
+                            <select id="vehicleCategory" required>
+                                <option value="">Sélectionnez la catégorie</option>
+                                <option value="passenger">Voiture particulière (≤ 9 places)</option>
+                                <option value="commercial">Véhicule commercial (≤ 3.5 tonnes)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="calculate-btn">📊 Calculer les Taxes</button>
+            </form>
+
+            <div id="results" class="results hidden">
+                <h3>💰 Détail des Taxes et Droits</h3>
+                
+                <div class="tax-breakdown" id="taxBreakdown">
+                    <!-- Les résultats seront générés ici -->
+                </div>
+
+                <div class="total-section">
+                    <h4>Total des taxes et droits à payer</h4>
+                    <div class="total-amount" id="totalAmount">0 DZD</div>
+                </div>
+
+                <div id="discountInfo" class="discount-info" style="display: none;">
+                    <h4>🎉 Réduction appliquée</h4>
+                    <p id="discountText"></p>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h4>📋 Informations importantes (2025)</h4>
+                <ul>
+                    <li>Les résidents algériens peuvent importer 1 véhicule d'occasion tous les 3 ans</li>
+                    <li>Le véhicule doit avoir moins de 3 ans d'âge</li>
+                    <li>Seuls les véhicules essence, hybrides et électriques sont autorisés (pas de diesel)</li>
+                    <li>Paiement obligatoire via une banque algérienne</li>
+                    <li>Le calcul est basé sur la valeur CIF (Cost, Insurance, Freight)</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Nouvelles règles de revente (2025)</strong>
+                Si vous vendez votre véhicule importé avant 36 mois, vous devez rembourser une partie des avantages fiscaux :
+                • 0-12 mois : 100% du crédit fiscal
+                • 12-24 mois : 66% du crédit fiscal  
+                • 24-36 mois : 33% du crédit fiscal
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('taxCalculator').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateTaxes();
+        });
+
+        function calculateTaxes() {
+            // Récupération des valeurs
+            const vehicleValue = parseFloat(document.getElementById('vehicleValue').value);
+            const engineType = document.getElementById('engineType').value;
+            const engineDisplacement = parseInt(document.getElementById('engineDisplacement').value);
+            const vehicleAge = parseInt(document.getElementById('vehicleAge').value);
+            const exchangeRate = parseFloat(document.getElementById('exchangeRate').value) || 146.68;
+            const vehicleCategory = document.getElementById('vehicleCategory').value;
+
+            // Validation
+            if (!vehicleValue || !engineType || !engineDisplacement || vehicleAge === '' || !vehicleCategory) {
+                alert('Veuillez remplir tous les champs obligatoires');
+                return;
+            }
+
+            if (vehicleAge > 36) {
+                alert('Les véhicules de plus de 36 mois ne sont pas autorisés à l\'importation');
+                return;
+            }
+
+            if (engineType === 'diesel') {
+                alert('Les véhicules diesel ne sont pas autorisés à l\'importation pour les particuliers');
+                return;
+            }
+
+            // Conversion en DZD
+            const valueInDZD = vehicleValue * exchangeRate;
+
+            // Calcul des taxes selon la cylindrée et le type de moteur
+            let customsDuty = 0;
+            let tic = 0; // Taxe Intérieure de Consommation
+
+            if (engineType === 'electric') {
+                customsDuty = valueInDZD * 0.30; // 30% pour véhicules électriques
+                tic = 0; // Pas de TIC pour les électriques
+            } else if (engineType === 'gasoline' || engineType === 'hybrid') {
+                if (engineDisplacement < 1800) {
+                    customsDuty = valueInDZD * 0.15; // 15% pour < 1800cc
+                } else {
+                    customsDuty = valueInDZD * 0.30; // 30% pour ≥ 1800cc
+                }
+                
+                // TIC selon la cylindrée
+                if (engineDisplacement <= 2000) {
+                    tic = valueInDZD * 0.30; // 30%
+                } else if (engineDisplacement <= 3000) {
+                    tic = valueInDZD * 0.60; // 60%
+                } else {
+                    tic = valueInDZD * 0.90; // 90% pour > 3000cc
+                }
+            }
+
+            // Autres taxes
+            const prct = valueInDZD * 0.02; // 2% PRCT
+            const tcs = valueInDZD * 0.02; // 2% TCS
+            const vat = (valueInDZD + customsDuty + tic + prct + tcs) * 0.19; // 19% TVA
+
+            // Total avant réduction
+            const totalBeforeDiscount = customsDuty + tic + prct + tcs + vat;
+
+            // Calcul des réductions pour véhicules < 3 ans
+            let discount = 0;
+            let discountPercentage = 0;
+            let discountText = '';
+
+            if (engineType === 'electric') {
+                discountPercentage = 80;
+                discountText = 'Réduction de 80% pour véhicule électrique';
+            } else if (engineType === 'gasoline' || engineType === 'hybrid') {
+                if (engineDisplacement <= 1800) {
+                    discountPercentage = 50;
+                    discountText = 'Réduction de 50% pour véhicule ≤ 1800cc';
+                } else {
+                    discountPercentage = 20;
+                    discountText = 'Réduction de 20% pour véhicule > 1800cc';
+                }
+            }
+
+            discount = totalBeforeDiscount * (discountPercentage / 100);
+            const totalAfterDiscount = totalBeforeDiscount - discount;
+
+            // Affichage des résultats
+            displayResults({
+                customsDuty,
+                tic,
+                prct,
+                tcs,
+                vat,
+                totalBeforeDiscount,
+                discount,
+                totalAfterDiscount,
+                discountPercentage,
+                discountText,
+                valueInDZD
+            });
+        }
+
+        function displayResults(taxes) {
+            const resultsDiv = document.getElementById('results');
+            const breakdownDiv = document.getElementById('taxBreakdown');
+            const totalDiv = document.getElementById('totalAmount');
+            const discountDiv = document.getElementById('discountInfo');
+            const discountTextDiv = document.getElementById('discountText');
+
+            // Formatage des montants
+            const formatter = new Intl.NumberFormat('fr-DZ', {
+                style: 'currency',
+                currency: 'DZD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            });
+
+            // Génération du détail des taxes
+            breakdownDiv.innerHTML = `
+                <div class="tax-item">
+                    <span class="label">Valeur en douane (DZD)</span>
+                    <span class="value">${formatter.format(taxes.valueInDZD)}</span>
+                </div>
+                <div class="tax-item">
+                    <span class="label">Droits de douane (DD)</span>
+                    <span class="value">${formatter.format(taxes.customsDuty)}</span>
+                </div>
+                <div class="tax-item">
+                    <span class="label">Taxe intérieure (TIC)</span>
+                    <span class="value">${formatter.format(taxes.tic)}</span>
+                </div>
+                <div class="tax-item">
+                    <span class="label">PRCT (2%)</span>
+                    <span class="value">${formatter.format(taxes.prct)}</span>
+                </div>
+                <div class="tax-item">
+                    <span class="label">TCS (2%)</span>
+                    <span class="value">${formatter.format(taxes.tcs)}</span>
+                </div>
+                <div class="tax-item">
+                    <span class="label">TVA (19%)</span>
+                    <span class="value">${formatter.format(taxes.vat)}</span>
+                </div>
+                ${taxes.discount > 0 ? `
+                <div class="tax-item" style="background: #d4edda; border-left: 4px solid #27ae60;">
+                    <span class="label">Réduction (-${taxes.discountPercentage}%)</span>
+                    <span class="value" style="color: #27ae60;">-${formatter.format(taxes.discount)}</span>
+                </div>
+                ` : ''}
+            `;
+
+            totalDiv.textContent = formatter.format(taxes.totalAfterDiscount);
+
+            // Affichage de l'info sur la réduction
+            if (taxes.discount > 0) {
+                discountTextDiv.textContent = taxes.discountText;
+                discountDiv.style.display = 'block';
+            } else {
+                discountDiv.style.display = 'none';
+            }
+
+            resultsDiv.classList.remove('hidden');
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Mise à jour automatique pour le type de moteur diesel
+        document.getElementById('engineType').addEventListener('change', function() {
+            if (this.value === 'diesel') {
+                alert('⚠️ Attention: Les véhicules diesel ne sont pas autorisés à l\'importation pour les particuliers en Algérie.');
+            }
+        });
+    </script>
+</body>
+</html>
