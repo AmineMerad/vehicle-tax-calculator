@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './App.css'
+import { Calculator, Car, Zap, Shield, TrendingUp, CheckCircle } from 'lucide-react'
 
 function App() {
   const [formData, setFormData] = useState({
@@ -22,7 +22,7 @@ function App() {
     }))
     
     if (name === 'engineType' && value === 'diesel') {
-      alert('Attention: Les vehicules diesel ne sont pas autorises a l\'importation pour les particuliers en Algerie.')
+      alert('Attention: Les véhicules diesel ne sont pas autorisés à l\'importation pour les particuliers en Algérie.')
     }
   }
 
@@ -42,12 +42,12 @@ function App() {
     }
 
     if (vehicleAge > 36) {
-      alert('Les vehicules de plus de 36 mois ne sont pas autorises a l\'importation')
+      alert('Les véhicules de plus de 36 mois ne sont pas autorisés à l\'importation')
       return
     }
 
     if (engineType === 'diesel') {
-      alert('Les vehicules diesel ne sont pas autorises a l\'importation pour les particuliers')
+      alert('Les véhicules diesel ne sont pas autorisés à l\'importation pour les particuliers')
       return
     }
 
@@ -87,14 +87,14 @@ function App() {
 
     if (engineType === 'electric') {
       discountPercentage = 80
-      discountText = 'Reduction de 80% pour vehicule electrique'
+      discountText = 'Réduction de 80% pour véhicule électrique'
     } else if (engineType === 'gasoline' || engineType === 'hybrid') {
       if (engineDisplacement <= 1800) {
         discountPercentage = 50
-        discountText = 'Reduction de 50% pour vehicule <= 1800cc'
+        discountText = 'Réduction de 50% pour véhicule ≤ 1800cc'
       } else {
         discountPercentage = 20
-        discountText = 'Reduction de 20% pour vehicule > 1800cc'
+        discountText = 'Réduction de 20% pour véhicule > 1800cc'
       }
     }
 
@@ -127,192 +127,256 @@ function App() {
   }
 
   return (
-    <div className="app-container">
-      <div className="header">
-        <div className="header-content">
-          <h1>Calculateur de Taxation Vehicules Algerie</h1>
-          <p>Voitures d'occasion de moins de 3 ans - Calcul des droits de douane et taxes</p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-20 h-20 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
+        <div className="absolute top-40 right-10 w-32 h-32 bg-purple-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse animation-delay-2000"></div>
+        <div className="absolute bottom-20 left-20 w-24 h-24 bg-pink-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse animation-delay-4000"></div>
       </div>
 
-      <div className="main-content">
-        <div className="calculator-card">
-          <form onSubmit={calculateTaxes} className="calculator-form">
-            <div className="form-grid">
-              <div className="form-section">
-                <div className="form-group">
-                  <label htmlFor="vehicleValue">Valeur CIF du vehicule (EUR) *</label>
+      <div className="relative z-10 max-w-4xl mx-auto p-6">
+        {/* Header */}
+        <div className="text-center mb-12 animate-fade-in">
+          <div className="flex items-center justify-center mb-6">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full animate-spin-slow opacity-20"></div>
+              <div className="relative bg-gradient-to-r from-blue-600 to-purple-600 p-4 rounded-full shadow-lg">
+                <Car className="h-10 w-10 text-white" />
+              </div>
+            </div>
+          </div>
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent mb-4">
+            Calculateur de Taxation
+          </h1>
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+            Véhicules d'Importation
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Calculez instantanément les droits de douane et taxes pour l'importation de véhicules en Algérie avec notre outil moderne et précis
+          </p>
+        </div>
+
+        {/* Main Form */}
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 p-8 mb-8 transform hover:scale-[1.01] transition-all duration-300">
+          <div className="flex items-center mb-6">
+            <Calculator className="h-6 w-6 text-blue-600 mr-3" />
+            <h3 className="text-xl font-semibold text-gray-800">Informations du Véhicule</h3>
+          </div>
+          
+          <form onSubmit={calculateTaxes} className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="group">
+                <label className="block text-sm font-semibold text-gray-700 mb-2 group-focus-within:text-blue-600 transition-colors">
+                  💰 Valeur CIF du véhicule (EUR) *
+                </label>
+                <div className="relative">
                   <input
                     type="number"
-                    id="vehicleValue"
                     name="vehicleValue"
-                    required
                     step="0.01"
-                    placeholder="Ex: 25000"
+                    placeholder="25000"
                     value={formData.vehicleValue}
                     onChange={handleInputChange}
-                    className="form-input"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="engineType">Type de moteur *</label>
-                  <select
-                    id="engineType"
-                    name="engineType"
                     required
-                    value={formData.engineType}
-                    onChange={handleInputChange}
-                    className="form-select"
-                  >
-                    <option value="">Selectionnez le type de moteur</option>
-                    <option value="gasoline">Essence</option>
-                    <option value="hybrid">Hybride</option>
-                    <option value="electric">Electrique</option>
-                    <option value="diesel">Diesel (Non autorise)</option>
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="engineDisplacement">Cylindree (cm³) *</label>
-                  <input
-                    type="number"
-                    id="engineDisplacement"
-                    name="engineDisplacement"
-                    required
-                    placeholder="Ex: 1600"
-                    value={formData.engineDisplacement}
-                    onChange={handleInputChange}
-                    className="form-input"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 bg-gray-50 hover:bg-white text-lg"
                   />
+                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                    <span className="text-gray-400 text-sm">EUR</span>
+                  </div>
                 </div>
               </div>
 
-              <div className="form-section">
-                <div className="form-group">
-                  <label htmlFor="vehicleAge">Age du vehicule (mois) *</label>
+              <div className="group">
+                <label className="block text-sm font-semibold text-gray-700 mb-2 group-focus-within:text-blue-600 transition-colors">
+                  ⚡ Type de moteur *
+                </label>
+                <select
+                  name="engineType"
+                  value={formData.engineType}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 bg-gray-50 hover:bg-white text-lg appearance-none cursor-pointer"
+                >
+                  <option value="">Sélectionnez le type de moteur</option>
+                  <option value="gasoline">🛣️ Essence</option>
+                  <option value="hybrid">🔋 Hybride</option>
+                  <option value="electric">⚡ Électrique</option>
+                  <option value="diesel">⛽ Diesel (Non autorisé)</option>
+                </select>
+              </div>
+
+              <div className="group">
+                <label className="block text-sm font-semibold text-gray-700 mb-2 group-focus-within:text-blue-600 transition-colors">
+                  🏎️ Cylindrée (cm³) *
+                </label>
+                <div className="relative">
                   <input
                     type="number"
-                    id="vehicleAge"
-                    name="vehicleAge"
+                    name="engineDisplacement"
+                    placeholder="1600"
+                    value={formData.engineDisplacement}
+                    onChange={handleInputChange}
                     required
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 bg-gray-50 hover:bg-white text-lg"
+                  />
+                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                    <span className="text-gray-400 text-sm">cm³</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="group">
+                <label className="block text-sm font-semibold text-gray-700 mb-2 group-focus-within:text-blue-600 transition-colors">
+                  📅 Âge du véhicule (mois) *
+                </label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    name="vehicleAge"
                     min="0"
                     max="36"
-                    placeholder="Ex: 18"
+                    placeholder="18"
                     value={formData.vehicleAge}
                     onChange={handleInputChange}
-                    className="form-input"
+                    required
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 bg-gray-50 hover:bg-white text-lg"
                   />
+                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                    <span className="text-gray-400 text-sm">mois</span>
+                  </div>
                 </div>
+              </div>
 
-                <div className="form-group">
-                  <label htmlFor="exchangeRate">Taux de change EUR/DZD</label>
+              <div className="group">
+                <label className="block text-sm font-semibold text-gray-700 mb-2 group-focus-within:text-blue-600 transition-colors">
+                  💱 Taux de change EUR/DZD
+                </label>
+                <div className="relative">
                   <input
                     type="number"
-                    id="exchangeRate"
                     name="exchangeRate"
                     step="0.01"
                     placeholder="146.68"
                     value={formData.exchangeRate}
                     onChange={handleInputChange}
-                    className="form-input"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 bg-gray-50 hover:bg-white text-lg"
                   />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="vehicleCategory">Categorie de vehicule *</label>
-                  <select
-                    id="vehicleCategory"
-                    name="vehicleCategory"
-                    required
-                    value={formData.vehicleCategory}
-                    onChange={handleInputChange}
-                    className="form-select"
-                  >
-                    <option value="">Selectionnez la categorie</option>
-                    <option value="passenger">Voiture particuliere (≤ 9 places)</option>
-                    <option value="commercial">Vehicule commercial (≤ 3.5 tonnes)</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <button type="submit" className="calculate-button">
-              Calculer les Taxes
-            </button>
-          </form>
-
-          {showResults && results && (
-            <div className="results-card">
-              <h3>Detail des Taxes et Droits</h3>
-              
-              <div className="tax-breakdown">
-                <div className="tax-item">
-                  <span className="tax-label">Valeur en douane (DZD)</span>
-                  <span className="tax-value">{formatCurrency(results.valueInDZD)}</span>
-                </div>
-                <div className="tax-item">
-                  <span className="tax-label">Droits de douane (DD)</span>
-                  <span className="tax-value">{formatCurrency(results.customsDuty)}</span>
-                </div>
-                <div className="tax-item">
-                  <span className="tax-label">Taxe interieure (TIC)</span>
-                  <span className="tax-value">{formatCurrency(results.tic)}</span>
-                </div>
-                <div className="tax-item">
-                  <span className="tax-label">PRCT (2%)</span>
-                  <span className="tax-value">{formatCurrency(results.prct)}</span>
-                </div>
-                <div className="tax-item">
-                  <span className="tax-label">TCS (2%)</span>
-                  <span className="tax-value">{formatCurrency(results.tcs)}</span>
-                </div>
-                <div className="tax-item">
-                  <span className="tax-label">TVA (19%)</span>
-                  <span className="tax-value">{formatCurrency(results.vat)}</span>
-                </div>
-                {results.discount > 0 && (
-                  <div className="tax-item discount-item">
-                    <span className="tax-label">Reduction (-{results.discountPercentage}%)</span>
-                    <span className="tax-value discount-value">-{formatCurrency(results.discount)}</span>
+                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                    <span className="text-gray-400 text-sm">DZD</span>
                   </div>
-                )}
-              </div>
-
-              <div className="total-section">
-                <h4>Total des taxes et droits a payer</h4>
-                <div className="total-amount">{formatCurrency(results.totalAfterDiscount)}</div>
-              </div>
-
-              {results.discount > 0 && (
-                <div className="discount-info">
-                  <h4>Reduction appliquee</h4>
-                  <p>{results.discountText}</p>
                 </div>
-              )}
+              </div>
+
+              <div className="group">
+                <label className="block text-sm font-semibold text-gray-700 mb-2 group-focus-within:text-blue-600 transition-colors">
+                  🚗 Catégorie de véhicule *
+                </label>
+                <select
+                  name="vehicleCategory"
+                  value={formData.vehicleCategory}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 bg-gray-50 hover:bg-white text-lg appearance-none cursor-pointer"
+                >
+                  <option value="">Sélectionnez la catégorie</option>
+                  <option value="passenger">🚙 Voiture particulière (≤ 9 places)</option>
+                  <option value="commercial">🚚 Véhicule commercial (≤ 3.5 tonnes)</option>
+                </select>
+              </div>
             </div>
-          )}
+
+            <div className="text-center pt-6">
+              <button
+                type="submit"
+                className="group relative bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-12 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center mx-auto text-lg"
+              >
+                <Calculator className="mr-3 h-6 w-6 group-hover:rotate-12 transition-transform duration-300" />
+                Calculer les Taxes
+                <div className="absolute inset-0 rounded-2xl bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+              </button>
+            </div>
+          </form>
         </div>
 
-        <div className="info-card">
-          <h4>Informations importantes (2025)</h4>
-          <ul>
-            <li>Les residents algeriens peuvent importer 1 vehicule d'occasion tous les 3 ans</li>
-            <li>Le vehicule doit avoir moins de 3 ans d'age</li>
-            <li>Seuls les vehicules essence, hybrides et electriques sont autorises (pas de diesel)</li>
-            <li>Paiement obligatoire via une banque algerienne</li>
-            <li>Le calcul est base sur la valeur CIF (Cost, Insurance, Freight)</li>
-          </ul>
-        </div>
+        {/* Results Section */}
+        {showResults && results && (
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-4">Résultats du Calcul</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-gray-50 p-4 rounded-md">
+                <div className="text-sm text-gray-600">Valeur en douane</div>
+                <div className="text-lg font-semibold text-gray-900">
+                  {formatCurrency(results.valueInDZD)}
+                </div>
+              </div>
 
-        <div className="warning-card">
-          <strong>Nouvelles regles de revente (2025)</strong>
-          <p>Si vous vendez votre vehicule importe avant 36 mois, vous devez rembourser une partie des avantages fiscaux :</p>
-          <ul>
-            <li>0-12 mois : 100% du credit fiscal</li>
-            <li>12-24 mois : 66% du credit fiscal</li>
-            <li>24-36 mois : 33% du credit fiscal</li>
-          </ul>
+              <div className="bg-gray-50 p-4 rounded-md">
+                <div className="text-sm text-gray-600">Droits de douane</div>
+                <div className="text-lg font-semibold text-gray-900">
+                  {formatCurrency(results.customsDuty)}
+                </div>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-md">
+                <div className="text-sm text-gray-600">Taxe intérieure (TIC)</div>
+                <div className="text-lg font-semibold text-gray-900">
+                  {formatCurrency(results.tic)}
+                </div>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-md">
+                <div className="text-sm text-gray-600">TVA (19%)</div>
+                <div className="text-lg font-semibold text-gray-900">
+                  {formatCurrency(results.vat)}
+                </div>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-md">
+                <div className="text-sm text-gray-600">PRCT (2%)</div>
+                <div className="text-lg font-semibold text-gray-900">
+                  {formatCurrency(results.prct)}
+                </div>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-md">
+                <div className="text-sm text-gray-600">TCS (2%)</div>
+                <div className="text-lg font-semibold text-gray-900">
+                  {formatCurrency(results.tcs)}
+                </div>
+              </div>
+            </div>
+
+            {results.discount > 0 && (
+              <div className="bg-green-50 border border-green-200 p-4 rounded-md mb-4">
+                <div className="text-sm text-green-700 font-medium">
+                  Réduction ({results.discountPercentage}%): -{formatCurrency(results.discount)}
+                </div>
+                <div className="text-sm text-green-600">{results.discountText}</div>
+              </div>
+            )}
+
+            <div className="bg-blue-50 border border-blue-200 p-6 rounded-md text-center">
+              <div className="text-lg font-medium text-blue-900 mb-2">
+                Total des taxes et droits à payer
+              </div>
+              <div className="text-3xl font-bold text-blue-600">
+                {formatCurrency(results.totalAfterDiscount)}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Info Section */}
+        <div className="bg-white rounded-lg shadow-md p-6 mt-6">
+          <h3 className="text-lg font-bold text-gray-900 mb-4">Informations importantes</h3>
+          <div className="space-y-2 text-sm text-gray-600">
+            <p>• Les résidents algériens peuvent importer 1 véhicule d'occasion tous les 3 ans</p>
+            <p>• Le véhicule doit avoir moins de 3 ans d'âge</p>
+            <p>• Seuls les véhicules essence, hybrides et électriques sont autorisés</p>
+            <p>• Le calcul est basé sur la valeur CIF (Cost, Insurance, Freight)</p>
+          </div>
         </div>
       </div>
     </div>
