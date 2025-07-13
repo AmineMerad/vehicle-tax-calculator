@@ -88,7 +88,7 @@ function App() {
     }))
     
     if (name === 'engineType' && value === 'diesel') {
-      alert('Attention: Les véhicules diesel ne sont pas autorisés à l\'importation pour les particuliers en Algérie.')
+      alert('Attention: Les véhicules d\'occasion diesel ne sont pas autorisés à l\'importation pour les particuliers en Algérie.')
     }
   }
 
@@ -116,13 +116,13 @@ function App() {
     const vehicleCategory = formData.vehicleCategory
 
     if (vehicleAge > 36) {
-      alert('Les véhicules de plus de 36 mois ne sont pas autorisés à l\'importation')
+      alert('Les véhicules d\'occasion de plus de 36 mois ne sont pas autorisés à l\'importation en Algérie')
       setIsCalculating(false)
       return
     }
 
     if (engineType === 'diesel') {
-      alert('Les véhicules diesel ne sont pas autorisés à l\'importation pour les particuliers')
+      alert('Les véhicules d\'occasion diesel ne sont pas autorisés à l\'importation pour les particuliers en Algérie')
       setIsCalculating(false)
       return
     }
@@ -226,9 +226,9 @@ function App() {
     if (!results) return
 
     const text = `
-CALCULATEUR DE TAXATION VÉHICULES - ALGÉRIE
+CALCULATEUR DE TAXATION VÉHICULES D'OCCASION - ALGÉRIE
 
-═══ DÉTAILS DU VÉHICULE ═══
+═══ DÉTAILS DU VÉHICULE D'OCCASION ═══
 Valeur CIF: ${results.vehicleDetails.value.toLocaleString('fr-FR')} EUR
 Type de moteur: ${results.vehicleDetails.engineType}
 Cylindrée: ${results.vehicleDetails.engineDisplacement} cm³
@@ -252,7 +252,7 @@ Montant de la réduction: -${formatCurrency(results.discount)}
 ${formatCurrency(results.totalAfterDiscount)}
 
 Calculé le: ${results.calculationDate}
-Source: Calculateur de Taxation Véhicules Algérie
+Source: Calculateur de Taxation Véhicules d'Occasion Algérie (≤ 3 ans)
     `.trim()
 
     try {
@@ -267,9 +267,9 @@ Source: Calculateur de Taxation Véhicules Algérie
     // In a real implementation, you'd use a PDF library like jsPDF
     if (!results) return
 
-    const content = `CALCULATEUR DE TAXATION VÉHICULES - ALGÉRIE
+    const content = `CALCULATEUR DE TAXATION VÉHICULES D'OCCASION - ALGÉRIE
 
-DÉTAILS DU VÉHICULE
+DÉTAILS DU VÉHICULE D'OCCASION
 Valeur CIF: ${results.vehicleDetails.value.toLocaleString('fr-FR')} EUR
 Type de moteur: ${results.vehicleDetails.engineType}
 Cylindrée: ${results.vehicleDetails.engineDisplacement} cm³
@@ -293,7 +293,7 @@ Montant de la réduction: -${formatCurrency(results.discount)}
 ${formatCurrency(results.totalAfterDiscount)}
 
 Calculé le: ${results.calculationDate}
-Source: Calculateur de Taxation Véhicules Algérie`
+Source: Calculateur de Taxation Véhicules d'Occasion Algérie (≤ 3 ans)`
 
     const blob = new Blob([content], { type: 'text/plain' })
     const url = URL.createObjectURL(blob)
@@ -334,7 +334,7 @@ Source: Calculateur de Taxation Véhicules Algérie`
             )}
           </div>
 
-          <InfoPanel darkMode={darkMode} />
+          <InfoPanel />
           
           <Footer />
         </div>

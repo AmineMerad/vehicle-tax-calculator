@@ -12,10 +12,10 @@ export default function Header({ darkMode, toggleDarkMode }) {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 px-4 py-16 md:py-24 text-center">
+      <div className="relative z-10 px-4 py-12 sm:py-16 md:py-24 text-center">
         <div className="max-w-4xl mx-auto">
           {/* Dark Mode Toggle */}
-          <div className="flex justify-end mb-8">
+          <div className="flex justify-end mb-6 sm:mb-8">
             <button
               onClick={toggleDarkMode}
               className="p-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 theme-text-inverse hover:bg-white/30 transition-all duration-300 group shadow-lg"
@@ -30,29 +30,29 @@ export default function Header({ darkMode, toggleDarkMode }) {
           </div>
 
           {/* Logo and Title */}
-          <div className="flex items-center justify-center mb-8">
+          <div className="flex items-center justify-center mb-6 sm:mb-8">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full animate-spin-slow opacity-30"></div>
-              <div className="relative bg-white/20 backdrop-blur-sm p-6 rounded-full border border-white/30 shadow-2xl">
-                <Car className="h-12 w-12 md:h-16 md:w-16 theme-text-inverse" />
+              <div className="relative bg-white/20 backdrop-blur-sm p-4 sm:p-6 rounded-full border border-white/30 shadow-2xl">
+                <Car className="h-10 w-10 sm:h-12 sm:w-12 md:h-16 md:w-16 theme-text-inverse" />
               </div>
             </div>
           </div>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold theme-text-inverse mb-6 leading-tight">
-            Calculateur de
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold theme-text-inverse mb-4 sm:mb-6 leading-tight">
+            Calculateur de Taxation
             <span className="block bg-gradient-to-r from-white/90 to-white/70 bg-clip-text text-transparent">
-              Taxation Véhicules
+              Véhicules d'Occasion
             </span>
           </h1>
 
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold theme-text-inverse opacity-90 mb-6">
-            Importation en Algérie
+          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold theme-text-inverse opacity-90 mb-4 sm:mb-6">
+            Importation Algérie - Véhicules ≤ 3 ans
           </h2>
 
-          <p className="text-lg md:text-xl theme-text-inverse opacity-80 max-w-3xl mx-auto leading-relaxed">
-            Calculez instantanément et précisément tous les droits de douane, taxes et frais 
-            d'importation pour votre véhicule avec notre outil professionnel certifié.
+          <p className="text-base sm:text-lg md:text-xl theme-text-inverse opacity-80 max-w-3xl mx-auto leading-relaxed px-2">
+            Estimez les droits de douane et taxes d'importation pour votre véhicule d'occasion 
+            de moins de 3 ans vers l'Algérie. Outil d'estimation basé sur les données publiques disponibles.
           </p>
         </div>
       </div>

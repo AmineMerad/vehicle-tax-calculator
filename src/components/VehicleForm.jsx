@@ -7,7 +7,7 @@ export default function VehicleForm({ formData, onInputChange, onSubmit, errors,
   const fieldInfo = {
     vehicleValue: {
       title: "Valeur CIF",
-      description: "Cost, Insurance, Freight - Valeur totale du véhicule rendu au port algérien",
+      description: "Cost, Insurance, Freight - Valeur totale du véhicule d'occasion rendu au port algérien",
       example: "Exemple: 25 000 EUR"
     },
     engineType: {
@@ -22,8 +22,8 @@ export default function VehicleForm({ formData, onInputChange, onSubmit, errors,
     },
     vehicleAge: {
       title: "Âge du véhicule",
-      description: "Âge depuis la première mise en circulation",
-      example: "Maximum 36 mois autorisé"
+      description: "Âge depuis la première mise en circulation du véhicule d'occasion",
+      example: "Maximum 36 mois pour l'importation en Algérie"
     },
     exchangeRate: {
       title: "Taux de change",
@@ -53,7 +53,7 @@ export default function VehicleForm({ formData, onInputChange, onSubmit, errors,
         <Info className="h-4 w-4 text-gray-400 hover:text-blue-500" />
       </button>
       {showTooltip === field && (
-        <div className="absolute z-50 w-72 p-4 mt-2 theme-bg-card theme-border-primary border rounded-lg theme-shadow-xl">
+        <div className="absolute z-50 w-64 sm:w-72 p-3 sm:p-4 mt-2 theme-bg-card theme-border-primary border rounded-lg theme-shadow-xl left-0 sm:left-auto right-0 sm:right-auto">
           <h4 className="font-semibold theme-text-primary mb-2">{fieldInfo[field].title}</h4>
           <p className="text-sm theme-text-secondary mb-2">{fieldInfo[field].description}</p>
           <p className="text-xs theme-border-accent">{fieldInfo[field].example}</p>
@@ -63,24 +63,24 @@ export default function VehicleForm({ formData, onInputChange, onSubmit, errors,
   )
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="max-w-4xl mx-auto px-4 py-6 sm:py-8">
       <div className="theme-bg-card rounded-2xl theme-shadow-xl theme-border-primary border overflow-hidden theme-transition">
         {/* Header */}
-        <div className="theme-bg-accent px-8 py-6 border-b theme-border-primary theme-transition">
+        <div className="theme-bg-accent px-4 sm:px-6 md:px-8 py-4 sm:py-6 border-b theme-border-primary theme-transition">
           <div className="flex items-center">
             <div className="p-3 bg-blue-500 rounded-xl shadow-lg">
               <Calculator className="h-6 w-6 text-white" />
             </div>
             <div className="ml-4">
-              <h3 className="text-xl font-bold theme-text-primary">Informations du Véhicule</h3>
-              <p className="text-sm theme-text-secondary">Remplissez tous les champs pour calculer les taxes</p>
+              <h3 className="text-xl font-bold theme-text-primary">Informations du Véhicule d'Occasion</h3>
+              <p className="text-sm theme-text-secondary">Remplissez tous les champs pour calculer les taxes d'importation (≤ 3 ans)</p>
             </div>
           </div>
         </div>
 
         {/* Form */}
-        <form onSubmit={onSubmit} className="p-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <form onSubmit={onSubmit} className="p-4 sm:p-6 md:p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
             {/* Vehicle Value */}
             <div className="group">
               <div className="flex items-center mb-2">
@@ -283,8 +283,8 @@ export default function VehicleForm({ formData, onInputChange, onSubmit, errors,
                   }`}
                 >
                   <option value="">Sélectionnez la catégorie</option>
-                  <option value="passenger">Voiture particulière (≤ 9 places)</option>
-                  <option value="commercial">Véhicule commercial (≤ 3.5 tonnes)</option>
+                  <option value="passenger">Voiture particulière d'occasion (≤ 9 places)</option>
+                  <option value="commercial">Véhicule commercial d'occasion (≤ 3.5 tonnes)</option>
                 </select>
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                   <svg className="h-5 w-5 theme-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -302,11 +302,11 @@ export default function VehicleForm({ formData, onInputChange, onSubmit, errors,
           </div>
 
           {/* Submit Button */}
-          <div className="mt-12 text-center">
+          <div className="mt-8 sm:mt-10 md:mt-12 text-center">
             <button
               type="submit"
               disabled={isCalculating}
-              className="group relative theme-button-primary hover:theme-button-primary font-semibold py-4 px-12 rounded-2xl theme-shadow-lg hover:theme-shadow-xl transform hover:scale-105 disabled:hover:scale-100 transition-all duration-300 flex items-center mx-auto text-lg disabled:opacity-50"
+              className="group relative theme-button-primary hover:theme-button-primary font-semibold py-3 sm:py-4 px-8 sm:px-12 rounded-2xl theme-shadow-lg hover:theme-shadow-xl transform hover:scale-105 disabled:hover:scale-100 transition-all duration-300 flex items-center mx-auto text-base sm:text-lg disabled:opacity-50 w-full max-w-xs sm:max-w-none sm:w-auto"
             >
               {isCalculating ? (
                 <>
@@ -316,7 +316,7 @@ export default function VehicleForm({ formData, onInputChange, onSubmit, errors,
               ) : (
                 <>
                   <Calculator className="mr-3 h-6 w-6 group-hover:rotate-12 transition-transform duration-300" />
-                  Calculer les Taxes
+                  Calculer les Taxes d'Importation
                 </>
               )}
               <div className="absolute inset-0 rounded-2xl bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>

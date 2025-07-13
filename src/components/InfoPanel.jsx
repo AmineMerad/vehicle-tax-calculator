@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Shield, AlertCircle, ChevronDown, ChevronUp, Info, Clock, FileText, Globe, Calculator } from 'lucide-react'
 
-export default function InfoPanel({ darkMode }) {
+export default function InfoPanel() {
   const [isExpanded, setIsExpanded] = useState(false)
   const [activeTab, setActiveTab] = useState('general')
 
@@ -11,24 +11,29 @@ export default function InfoPanel({ darkMode }) {
       icon: Info,
       items: [
         {
-          title: "Éligibilité d'importation",
+          title: "Éligibilité d'importation véhicules d'occasion",
           description: "Les résidents algériens peuvent importer 1 véhicule d'occasion tous les 3 ans",
-          detail: "Cette règle s'applique aux particuliers résidents en Algérie depuis au moins 3 ans consécutifs."
+          detail: "Cette règle s'applique uniquement aux véhicules d'occasion pour les particuliers résidents en Algérie depuis au moins 3 ans consécutifs."
         },
         {
-          title: "Âge maximum autorisé",
-          description: "Le véhicule doit avoir moins de 3 ans d'âge (36 mois)",
-          detail: "L'âge est calculé depuis la date de première mise en circulation du véhicule."
+          title: "Âge maximum autorisé pour véhicules d'occasion",
+          description: "Le véhicule d'occasion doit avoir moins de 3 ans d'âge (36 mois)",
+          detail: "L'âge est calculé depuis la date de première mise en circulation du véhicule d'occasion. Les véhicules neufs ont une réglementation différente."
         },
         {
-          title: "Types de motorisation",
-          description: "Seuls les véhicules essence, hybrides et électriques sont autorisés",
-          detail: "Les véhicules diesel sont interdits à l'importation pour les particuliers depuis 2020."
+          title: "Types de motorisation autorisés",
+          description: "Seuls les véhicules d'occasion essence, hybrides et électriques sont autorisés",
+          detail: "Les véhicules d'occasion diesel sont interdits à l'importation pour les particuliers depuis 2020."
         },
         {
-          title: "Valeur CIF",
-          description: "Le calcul est basé sur la valeur CIF (Cost, Insurance, Freight)",
-          detail: "Inclut le prix d'achat du véhicule, l'assurance transport et le fret jusqu'au port algérien."
+          title: "Valeur CIF en EUR",
+          description: "Le calcul est basé sur la valeur CIF en euros (Cost, Insurance, Freight)",
+          detail: "Inclut le prix d'achat du véhicule d'occasion, l'assurance transport et le fret jusqu'au port algérien. Conversion EUR/DZD selon le taux officiel."
+        },
+        {
+          title: "Véhicules neufs - Prochainement",
+          description: "Le calcul des taxes pour véhicules neufs sera ajouté ultérieurement",
+          detail: "Ce calculateur est actuellement spécialisé pour les véhicules d'occasion de moins de 3 ans. Les règles pour véhicules neufs sont différentes."
         }
       ]
     },
@@ -37,9 +42,9 @@ export default function InfoPanel({ darkMode }) {
       icon: Calculator,
       items: [
         {
-          title: "Droits de douane",
+          title: "Droits de douane véhicules d'occasion",
           description: "15% pour véhicules ≤1800cc, 30% pour >1800cc (essence/hybride), 30% (électrique)",
-          detail: "Taux préférentiels pour encourager l'importation de véhicules moins polluants."
+          detail: "Taux préférentiels pour encourager l'importation de véhicules d'occasion moins polluants."
         },
         {
           title: "TIC (Taxe Intérieure de Consommation)",
@@ -148,10 +153,10 @@ export default function InfoPanel({ darkMode }) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="max-w-4xl mx-auto px-4 py-6 sm:py-8">
       <div className="theme-bg-card rounded-2xl theme-shadow-xl theme-border-primary border overflow-hidden theme-transition">
         {/* Header */}
-        <div className="theme-bg-accent px-8 py-6 border-b theme-border-primary theme-transition">
+        <div className="theme-bg-accent px-4 sm:px-6 md:px-8 py-4 sm:py-6 border-b theme-border-primary theme-transition">
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className="w-full flex items-center justify-between group focus:outline-none"
@@ -162,10 +167,10 @@ export default function InfoPanel({ darkMode }) {
               </div>
               <div className="ml-4 text-left">
                 <h3 className="text-xl font-bold theme-text-primary group-hover:text-amber-600 transition-colors">
-                  Informations Importantes
+                  Informations Véhicules d'Occasion
                 </h3>
                 <p className="text-sm theme-text-secondary">
-                  {isExpanded ? 'Masquer' : 'Afficher'} les détails et réglementations
+                  {isExpanded ? 'Masquer' : 'Afficher'} les détails pour véhicules d'occasion
                 </p>
               </div>
             </div>
@@ -189,7 +194,7 @@ export default function InfoPanel({ darkMode }) {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center px-6 py-4 text-sm font-medium transition-all duration-200 ${
+                  className={`flex items-center px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-xs sm:text-sm font-medium transition-all duration-200 ${
                     activeTab === tab.id
                       ? 'border-b-2 border-blue-500 text-blue-600 dark:text-blue-400 bg-white dark:bg-gray-800'
                       : 'text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-white dark:hover:bg-gray-600'
@@ -203,7 +208,7 @@ export default function InfoPanel({ darkMode }) {
           </div>
 
           {/* Tab Content */}
-          <div className="p-8">
+          <div className="p-4 sm:p-6 md:p-8">
             <div className="mb-6">
               <h4 className="text-lg font-bold theme-text-primary mb-2 flex items-center">
                 {(() => {
@@ -229,15 +234,15 @@ export default function InfoPanel({ darkMode }) {
               </div>
               <div>
                 <h4 className="text-base font-semibold text-red-800 mb-2">
-                  Avertissement Important
+                  Note Importante
                 </h4>
                 <p className="text-sm text-red-700 leading-relaxed mb-3">
-                  Ce calculateur est fourni à titre informatif uniquement. Les taxes et droits réels peuvent varier 
-                  selon les réglementations douanières en vigueur et les spécificités de chaque dossier.
+                  Cet outil d'estimation est basé sur des informations publiques et est fourni à titre indicatif uniquement. 
+                  Les montants réels peuvent différer selon votre situation spécifique.
                 </p>
                 <p className="text-sm text-red-700 leading-relaxed">
-                  <strong>Consultez toujours les autorités douanières compétentes</strong> (Direction Générale des Douanes) 
-                  pour obtenir des informations officielles et à jour avant toute démarche d'importation.
+                  <strong>Consultez toujours les services douaniers officiels</strong> 
+                  pour obtenir des informations précises et à jour avant toute démarche d'importation.
                 </p>
               </div>
             </div>
@@ -260,26 +265,26 @@ export default function InfoPanel({ darkMode }) {
 
         {/* Always Visible Quick Tips */}
         {!isExpanded && (
-          <div className="p-6 theme-bg-accent theme-transition">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
-              <div className="p-3 theme-bg-card rounded-lg theme-shadow-sm theme-transition">
-                <div className="text-2xl mb-2">⚡</div>
-                <div className="text-xs font-medium theme-text-primary">Véhicules électriques</div>
+          <div className="p-4 sm:p-6 theme-bg-accent theme-transition">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-center">
+              <div className="p-2 sm:p-3 theme-bg-card rounded-lg theme-shadow-sm theme-transition">
+                <div className="text-xl sm:text-2xl mb-1 sm:mb-2">⚡</div>
+                <div className="text-xs sm:text-sm font-medium theme-text-primary">Véhicules électriques</div>
                 <div className="text-xs theme-text-muted">-80% de taxes</div>
               </div>
-              <div className="p-3 theme-bg-card rounded-lg theme-shadow-sm theme-transition">
-                <div className="text-2xl mb-2">🚗</div>
-                <div className="text-xs font-medium theme-text-primary">≤ 1800cc</div>
+              <div className="p-2 sm:p-3 theme-bg-card rounded-lg theme-shadow-sm theme-transition">
+                <div className="text-xl sm:text-2xl mb-1 sm:mb-2">🚗</div>
+                <div className="text-xs sm:text-sm font-medium theme-text-primary">≤ 1800cc</div>
                 <div className="text-xs theme-text-muted">-50% de taxes</div>
               </div>
-              <div className="p-3 theme-bg-card rounded-lg theme-shadow-sm theme-transition">
-                <div className="text-2xl mb-2">📅</div>
-                <div className="text-xs font-medium theme-text-primary">Âge maximum</div>
+              <div className="p-2 sm:p-3 theme-bg-card rounded-lg theme-shadow-sm theme-transition">
+                <div className="text-xl sm:text-2xl mb-1 sm:mb-2">📅</div>
+                <div className="text-xs sm:text-sm font-medium theme-text-primary">Âge maximum</div>
                 <div className="text-xs theme-text-muted">36 mois</div>
               </div>
-              <div className="p-3 theme-bg-card rounded-lg theme-shadow-sm theme-transition">
-                <div className="text-2xl mb-2">⛽</div>
-                <div className="text-xs font-medium theme-text-primary">Diesel</div>
+              <div className="p-2 sm:p-3 theme-bg-card rounded-lg theme-shadow-sm theme-transition">
+                <div className="text-xl sm:text-2xl mb-1 sm:mb-2">⛽</div>
+                <div className="text-xs sm:text-sm font-medium theme-text-primary">Diesel</div>
                 <div className="text-xs theme-text-muted">Interdit</div>
               </div>
             </div>

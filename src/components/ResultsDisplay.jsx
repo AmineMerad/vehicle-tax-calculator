@@ -67,19 +67,19 @@ export default function ResultsDisplay({ results, formatCurrency, onCopyResults,
   )
 
   const TaxCard = ({ title, value, icon: Icon, color, progress, description }) => (
-    <div className={`bg-gradient-to-br ${color} p-6 rounded-xl border border-opacity-20 transform transition-all duration-500 hover:scale-105 hover:shadow-lg`}>
+    <div className={`bg-gradient-to-br ${color} p-4 sm:p-6 rounded-xl border border-opacity-20 transform transition-all duration-500 hover:scale-105 hover:shadow-lg`}>
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center">
           <div className={`p-2 rounded-lg bg-white bg-opacity-20`}>
             <Icon className="h-5 w-5 text-white" />
           </div>
-          <h4 className="text-sm font-semibold text-white ml-3">{title}</h4>
+          <h4 className="text-xs sm:text-sm font-semibold text-white ml-2 sm:ml-3">{title}</h4>
         </div>
       </div>
-      <div className="text-2xl font-bold text-white mb-2">
+      <div className="text-xl sm:text-2xl font-bold text-white mb-2">
         {formatCurrency(value)}
       </div>
-      <p className="text-xs text-white text-opacity-80 mb-3">{description}</p>
+      <p className="text-xs sm:text-sm text-white text-opacity-80 mb-3">{description}</p>
       {progress && <ProgressBar {...progress} />}
     </div>
   )
@@ -89,53 +89,53 @@ export default function ResultsDisplay({ results, formatCurrency, onCopyResults,
   const maxValue = results.totalAfterDiscount
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 animate-fade-in">
+    <div className="max-w-4xl mx-auto px-4 py-6 sm:py-8 animate-fade-in">
       {/* Header */}
       <div className="theme-bg-card rounded-2xl theme-shadow-xl theme-border-primary border overflow-hidden theme-transition">
-        <div className="theme-bg-accent px-8 py-6 border-b theme-border-primary theme-transition">
+        <div className="theme-bg-accent px-4 sm:px-6 md:px-8 py-4 sm:py-6 border-b theme-border-primary theme-transition">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <div className="p-3 bg-green-500 rounded-xl shadow-lg">
                 <CheckCircle className="h-6 w-6 text-white" />
               </div>
               <div className="ml-4">
-                <h2 className="text-xl font-bold theme-text-primary">Résultats du Calcul</h2>
-                <p className="text-sm theme-text-secondary">Détail complet de la taxation</p>
+                <h2 className="text-xl font-bold theme-text-primary">Résultats du Calcul - Véhicule d'Occasion</h2>
+                <p className="text-sm theme-text-secondary">Détail complet de la taxation d'importation (≤ 3 ans)</p>
               </div>
             </div>
-            <div className="flex space-x-3">
+            <div className="flex space-x-2 sm:space-x-3">
               <button
                 onClick={handleCopy}
-                className="p-3 bg-blue-500 hover:bg-blue-600 text-white rounded-xl transition-colors duration-200 group"
+                className="p-2 sm:p-3 bg-blue-500 hover:bg-blue-600 text-white rounded-xl transition-colors duration-200 group"
                 title="Copier les résultats"
               >
-                <Copy className={`h-5 w-5 ${copied ? 'animate-bounce' : 'group-hover:scale-110'} transition-transform`} />
+                <Copy className={`h-4 w-4 sm:h-5 sm:w-5 ${copied ? 'animate-bounce' : 'group-hover:scale-110'} transition-transform`} />
               </button>
               <button
                 onClick={onDownloadPDF}
-                className="p-3 bg-purple-500 hover:bg-purple-600 text-white rounded-xl transition-colors duration-200 group"
+                className="p-2 sm:p-3 bg-purple-500 hover:bg-purple-600 text-white rounded-xl transition-colors duration-200 group"
                 title="Télécharger PDF"
               >
-                <Download className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                <Download className="h-4 w-4 sm:h-5 sm:w-5 group-hover:scale-110 transition-transform" />
               </button>
             </div>
           </div>
         </div>
 
         {/* Main Value Display */}
-        <div className="p-8">
+        <div className="p-4 sm:p-6 md:p-8">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center px-6 py-3 theme-bg-accent rounded-full mb-4">
+            <div className="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 theme-bg-accent rounded-full mb-4">
               <DollarSign className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-2" />
               <span className="text-sm font-medium theme-border-accent">Valeur en douane</span>
             </div>
-            <div className="text-3xl font-bold theme-text-primary mb-2">
+            <div className="text-2xl sm:text-3xl font-bold theme-text-primary mb-2">
               {formatCurrency(animatedValues.valueInDZD || 0)}
             </div>
           </div>
 
           {/* Tax Breakdown Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
             <TaxCard
               title="Droits de douane"
               value={animatedValues.customsDuty || 0}
@@ -248,15 +248,15 @@ export default function ResultsDisplay({ results, formatCurrency, onCopyResults,
           )}
 
           {/* Total Amount */}
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-8 rounded-2xl text-center text-white shadow-2xl">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 sm:p-8 rounded-2xl text-center text-white shadow-2xl">
             <div className="flex items-center justify-center mb-4">
               <DollarSign className="h-8 w-8 mr-3" />
-              <span className="text-lg font-medium opacity-90">Total des taxes et droits à payer</span>
+              <span className="text-lg font-medium opacity-90">Total des taxes d'importation à payer</span>
             </div>
-            <div className="text-4xl md:text-5xl font-bold mb-3">
+            <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
               {formatCurrency(animatedValues.totalAfterDiscount || 0)}
             </div>
-            <p className="text-lg opacity-80">Montant final après toutes déductions</p>
+            <p className="text-base sm:text-lg opacity-80">Montant final pour véhicule d'occasion après déductions</p>
             
             {/* Success Message */}
             {copied && (
